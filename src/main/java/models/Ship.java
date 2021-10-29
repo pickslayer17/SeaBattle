@@ -1,5 +1,6 @@
 package models;
 
+import enums.DeckValue;
 import enums.ShipName;
 import enums.ShipValue;
 
@@ -38,5 +39,31 @@ public class Ship  {
 
     public void setShipValue(ShipValue shipValue) {
         this.shipValue = shipValue;
+    }
+
+    public void checkShip(){
+        boolean isAlive = false;
+        for(Deck deck: decks) {
+            if(deck.getDeckValue() == DeckValue.HEALTHY){ //if there is at least one HEALTHY -> the SHIP is not DEAD
+                isAlive = true;
+            }
+        }
+        if(!isAlive){
+            killShip();
+            System.out.println(" & KILLED");
+        } else {
+            System.out.println();
+        }
+    }
+
+    private void killShip(){
+        shipValue = ShipValue.DEAD;
+        setAuraVisible();
+    }
+
+    public void setAuraVisible(){
+        for(Aura aura:shipAura) {
+            aura.setVisible(true);
+        }
     }
 }

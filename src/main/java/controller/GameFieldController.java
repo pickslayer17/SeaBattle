@@ -51,22 +51,23 @@ This method read all GameObjectValues from Cells on the GameField and output the
 
 
     public void userInput() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("1. Shot\n2. Something else");
-        try {
-            switch (scanner.nextLine().charAt(0)) {
-                case '1':
-                    System.out.println("1");
-                    performShot();
-                    break;
-                case '2':
-                    System.out.println("2");
-                    break;
-                default:
-            }
-        } catch (StringIndexOutOfBoundsException exception){
-            exception.printStackTrace();
-        }
+        performShot();
+//        Scanner scanner = new Scanner(System.in);
+//        System.out.println("1. Shot\n2. Something else");
+//        try {
+//            switch (scanner.nextLine().charAt(0)) {
+//                case '1':
+//                    System.out.println("1");
+//                    performShot();
+//                    break;
+//                case '2':
+//                    System.out.println("2");
+//                    break;
+//                default:
+//            }
+//        } catch (StringIndexOutOfBoundsException exception){
+//            exception.printStackTrace();
+//        }
     }
 
     private void performShot() {

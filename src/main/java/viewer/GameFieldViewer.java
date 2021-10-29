@@ -1,10 +1,7 @@
 package viewer;
 
 import enums.GameObjectValue;
-import models.Cell;
-import models.Deck;
-import models.GameField;
-import models.GameObject;
+import models.*;
 
 /*
 This object only output data based on CellValue of the Cells in the GameField
@@ -32,43 +29,60 @@ public class GameFieldViewer {
         System.out.println("--------------------");
     }
 
-    private boolean auraCondition(GameObject gameObject){
-        return true;
+    private boolean auraIsVisible(Aura aura){
+        if(aura.isVisible()) {
+            return true;
+        }
+        return false;
     }
 
     private void fillArray(GameField gameField) {
 
+        Cell cell;
+        GameObject gameObject;
+        GameObjectValue gameObjectValue;
         for (int i = 0; i < fieldArray.length; i++) {
             for (int j = 0; j < fieldArray[i].length; j++) {
-                Cell cell = gameField.getCell(i,j);
-                GameObject gameObject = cell.findGameObjectUnderShots();
-                GameObjectValue gameObjectValue = gameObject.getGameObjectValue();
-//                GameObjectValue gameObjectValue = gameObject.getGameObjectValue();
-                switch (gameObjectValue) {
-                        case DECK:
-                            Deck deck = (Deck) gameObject;
-                            switch (deck.getDeckValue()){
-                                case HEALTHY -> fieldArray[i][j] = 'O';
-                                case INJURED -> fieldArray[i][j] = 'X';
-                            }
-                            break;
-                        case SHOT:
-                            fieldArray[i][j] = '*';
-                            break;
-                        case EMPTY:
-                            fieldArray[i][j] = ' ';
-                            break;
-                        case AURA:
-                            if(auraCondition(gameObject)){
-                                fieldArray[i][j] = '-';
-                            } else {
-                                fieldArray[i][j] = ' ';
-                            }
-                            break;
-                        default:
-                            fieldArray[i][j] = '@';
-                    }
+                cell = gameField.getCell(i,j);
+                gameObject = cell.findGameObjectUnderShots();
+                gameObjectValue = gameObject.getGameObjectValue();
+
+                fillArraySwitch(gameObject,gameObjectValue,i,j);//Huge switch
+
             }
         }
+    }
+
+    public void fillArraySwitch(GameObject gameObject, GameObjectValue gameObjectValue, int i, int j){
+        switch (gameObjectValue) {
+            case DECK:
+                Deck deck = (Deck) gameObject;
+                switch (deck.getDeckValue()){
+                    case HEALTHY -> fieldArray[i][j] = 'O';
+                    case INJURED -> fieldArray[i][j] = 'X';
+                }
+                break;
+            case SHOT:
+                fieldArray[i][j] = '*';
+                break;
+            case EMPTY:
+                fieldArray[i][j] = ' ';
+                break;
+            case AURA:
+                Aura aura = (Aura) gameObject;
+                if(aura.isShot()){
+                    fieldArray[i][j] = '*';
+                } else {
+                    if(auraIsVisible(aura)){
+                        fieldArray[i][j] = '-';
+                    } else {
+                        fieldArray[i][j] = ' ';
+                    }
+                }
+                break;
+            default:
+                fieldArray[i][j] = '@';
+        }
+
     }
 }

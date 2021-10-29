@@ -35,65 +35,14 @@ public class ShotManager {
         Shot shot = new Shot(cell, GameObjectValue.SHOT);
         cell.attachGameObject((GameObject) shot);
 
-        GameObject gameObjectUnderShot = cell.findGameObjectUnderShots();
-        shotGameObject(gameObjectUnderShot);//shot logic
+        cell.findGameObjectUnderShots().shot();
+
 
         notifyListeners();
     }
 
-    //
 
 
-    private void shotGameObject(GameObject gameObject){
-
-        switch (gameObject.getGameObjectValue()){
-            case AURA:
-                Aura aura = (Aura) gameObject;
-                System.out.println("shot in Aura");
-            break;
-            case DECK:
-                Deck deck = (Deck) gameObject;
-                shotDeck(deck);
-                System.out.println("shot in Deck");
-                break;
-            case EMPTY:
-                EmptyObject empty = (EmptyObject) gameObject;
-                System.out.println("missed!");
-                break;
-
-            default:
-                System.out.println("????");
-        }
-
-    }
-
-    private void shotDeck(Deck deck) {
-        Ship ship = deck.getShip();
-        if(deck.getDeckValue() == DeckValue.HEALTHY){
-            deck.setDeckValue(DeckValue.INJURED);
-            System.out.print("INJURED");
-            checkShip(ship);
-        } else {
-            System.out.println("You've already shot here!");
-        }
-    }
-
-    private void checkShip(Ship ship) {
-        ship.setShipValue(ShipValue.INJURED);
-        boolean isAlive = false;
-        for(Deck deck: ship.getDecks()) {
-            if(deck.getDeckValue() == DeckValue.HEALTHY){ //if there is at least one HEALTHY -> the SHIP is not DEAD
-                isAlive = true;
-            }
-        }
-        if(!isAlive){
-            ship.setShipValue(ShipValue.DEAD);
-            System.out.println(" & KILLED");
-        } else {
-            System.out.println();
-        }
-
-    }
 
 
 }

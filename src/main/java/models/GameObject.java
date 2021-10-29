@@ -6,7 +6,7 @@ import enums.GameObjectValue;
 This class is super class for all GameObject such as Deck(of the Ship), Aura(of the Ship) ans etc.
  */
 
-public abstract class GameObject {
+public abstract class GameObject implements Shotable{
     private Cell cell;
     private GameObjectValue gameObjectValue;
 

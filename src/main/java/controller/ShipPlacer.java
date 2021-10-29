@@ -96,7 +96,7 @@ This method create a list of Aura around the Ship
         for (int i = lineBegin; i <= lineEnd; i++) {
             for (int j = columnBegin; j <= columnEnd; j++) {
                 if(gameField.isCoordinateInsideField(i,j) && isCellEmptyForAura(i,j)) {
-                    Aura aura = new Aura(gameField.getCell(i,j), GameObjectValue.AURA);
+                    Aura aura = new Aura(gameField.getCell(i,j), ship, GameObjectValue.AURA);
                     ship.getShipAura().add(aura);
                     gameField.getCell(i,j).attachGameObject((GameObject) aura);
 
