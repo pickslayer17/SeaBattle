@@ -1,11 +1,9 @@
 package controller;
 
+import enums.DeckValue;
 import enums.GameObjectValue;
-import models.ShotListener;
-import models.Cell;
-import models.GameField;
-import models.GameObject;
-import models.Shot;
+import enums.ShipValue;
+import models.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,49 +29,68 @@ public class ShotManager {
     }
 
 
-    //Create a Shot object and attaches it to Cell, then
+    //Create a Shot object and attaches it to Cell, then find gameObject under Shots and shot it
     public void shot(int line, int column) {
         Cell cell = gameField.getCell(line, column);
         Shot shot = new Shot(cell, GameObjectValue.SHOT);
         cell.attachGameObject((GameObject) shot);
 
-        GameObject gameObjectUnderShot = findGameObjectUnderShot(cell);
+        GameObject gameObjectUnderShot = cell.findGameObjectUnderShots();
         shotGameObject(gameObjectUnderShot);//shot logic
-
 
         notifyListeners();
     }
 
     //
-    private GameObject findGameObjectUnderShot(Cell cell){
-        List<GameObject> gameObjectList = cell.getGameObjects();
-        gameObjectList.stream().forEach(x -> System.out.println(x));
 
-        GameObject gameObjectUnderShot = gameObjectList.get(gameObjectList.size()-1);//top GameObject in gameObjectList of the Cell
-        for (int i = gameObjectList.size()-1; i >=0 ; i--) {
-            if(gameObjectList.get(i).getGameObjectValue() != GameObjectValue.SHOT){
-                gameObjectUnderShot = gameObjectList.get(i);
-                System.out.println("Position of non-shot object is " + i);
-                break;
-            }
-        }
-        return gameObjectUnderShot;
-    }
 
     private void shotGameObject(GameObject gameObject){
+
         switch (gameObject.getGameObjectValue()){
             case AURA:
+                Aura aura = (Aura) gameObject;
                 System.out.println("shot in Aura");
             break;
             case DECK:
+                Deck deck = (Deck) gameObject;
+                shotDeck(deck);
                 System.out.println("shot in Deck");
                 break;
             case EMPTY:
+                EmptyObject empty = (EmptyObject) gameObject;
                 System.out.println("missed!");
                 break;
 
             default:
                 System.out.println("????");
+        }
+
+    }
+
+    private void shotDeck(Deck deck) {
+        Ship ship = deck.getShip();
+        if(deck.getDeckValue() == DeckValue.HEALTHY){
+            deck.setDeckValue(DeckValue.INJURED);
+            System.out.print("INJURED");
+            checkShip(ship);
+        } else {
+            System.out.println("You've already shot here!");
+        }
+    }
+
+    private void checkShip(Ship ship) {
+        ship.setShipValue(ShipValue.INJURED);
+        boolean isAlive = false;
+        for(Deck deck: ship.getDecks()) {
+            if(deck.getDeckValue() == DeckValue.HEALTHY){ //if there is at least one HEALTHY -> the SHIP is not DEAD
+                isAlive = true;
+            }
+        }
+        if(!isAlive){
+            ship.setShipValue(ShipValue.DEAD);
+            System.out.println(" & KILLED");
+        } else {
+            System.out.println();
         }
 
     }

@@ -1,5 +1,7 @@
 package viewer;
 
+import enums.GameObjectValue;
+import models.Cell;
 import models.Deck;
 import models.GameField;
 import models.GameObject;
@@ -9,6 +11,7 @@ This object only output data based on CellValue of the Cells in the GameField
  */
 
 public class GameFieldViewer {
+    public static boolean debugCondition=false;
     char[][] fieldArray;
 
     public void paintAll(GameField gameField) {
@@ -29,29 +32,38 @@ public class GameFieldViewer {
         System.out.println("--------------------");
     }
 
+    private boolean auraCondition(GameObject gameObject){
+        return true;
+    }
 
     private void fillArray(GameField gameField) {
 
         for (int i = 0; i < fieldArray.length; i++) {
             for (int j = 0; j < fieldArray[i].length; j++) {
-                GameObject gameObject = gameField.getCell(i,j).getLastGameObjectFromList();
-                    switch (gameObject.getGameObjectValue()) {
+                Cell cell = gameField.getCell(i,j);
+                GameObject gameObject = cell.findGameObjectUnderShots();
+                GameObjectValue gameObjectValue = gameObject.getGameObjectValue();
+//                GameObjectValue gameObjectValue = gameObject.getGameObjectValue();
+                switch (gameObjectValue) {
                         case DECK:
                             Deck deck = (Deck) gameObject;
                             switch (deck.getDeckValue()){
                                 case HEALTHY -> fieldArray[i][j] = 'O';
-                                case INJURED -> fieldArray[i][j] = '0';
-                                case DEAD -> fieldArray[i][j] = 'X';
+                                case INJURED -> fieldArray[i][j] = 'X';
                             }
                             break;
                         case SHOT:
-                            fieldArray[i][j] = 'X';
+                            fieldArray[i][j] = '*';
                             break;
                         case EMPTY:
                             fieldArray[i][j] = ' ';
                             break;
                         case AURA:
-                            fieldArray[i][j] = '-';
+                            if(auraCondition(gameObject)){
+                                fieldArray[i][j] = '-';
+                            } else {
+                                fieldArray[i][j] = ' ';
+                            }
                             break;
                         default:
                             fieldArray[i][j] = '@';

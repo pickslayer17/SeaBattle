@@ -36,8 +36,7 @@ public class Cell  {
 
 
     /*
-
-
+    this method attaches gameObject to Cell gameObject list
      */
     public void attachGameObject(GameObject gameObject) {
         gameObjects.add(gameObject);
@@ -51,6 +50,16 @@ public class Cell  {
         return column;
     }
 
+    public GameObject findGameObjectUnderShots(){
+        GameObject gameObjectUnderShot = getLastGameObjectFromList();//top GameObject in gameObjectList of the Cell
+        for (int i = gameObjects.size()-1; i >=0 ; i--) {
+            if(gameObjects.get(i).getGameObjectValue() != GameObjectValue.SHOT){
+                gameObjectUnderShot = gameObjects.get(i);
+                break;
+            }
+        }
+        return gameObjectUnderShot;
+    }
 
 
 

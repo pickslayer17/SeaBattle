@@ -2,6 +2,5 @@ package enums;
 
 public enum DeckValue {
     HEALTHY,
-    INJURED,
-    DEAD
+    INJURED
 }

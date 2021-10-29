@@ -36,9 +36,7 @@ public class Ship  {
         return decks;
     }
 
-
-
-
-
-
+    public void setShipValue(ShipValue shipValue) {
+        this.shipValue = shipValue;
+    }
 }
