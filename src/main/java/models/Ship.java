@@ -17,6 +17,7 @@ public class Ship  {
     private ShipName shipName;
     private List<Aura> shipAura = new ArrayList<>();
     private ShipValue shipValue;
+    private boolean isHorizontal;
 
     public ShipName getShipName() {
         return shipName;
@@ -24,10 +25,18 @@ public class Ship  {
 
     public Ship(ShipName shipName) {
         this.shipName = shipName;
+        this.isHorizontal = isHorizontal;
         decks = new ArrayList<>(shipName.getDeckCount());
 
     }
 
+    public void setHorizontal(boolean horizontal) {
+        isHorizontal = horizontal;
+    }
+
+    public boolean isHorizontal() {
+        return isHorizontal;
+    }
 
     public List<Aura> getShipAura() {
         return shipAura;

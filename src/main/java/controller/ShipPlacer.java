@@ -65,7 +65,7 @@ Returns true if Ship was put and false if not
             gameField.addShip(ship);
             initializeDecks(ship, cellsForShip);
             initializeShipAura(ship, cellsForShip, isHorizontal);
-
+            ship.setHorizontal(isHorizontal);
             return true;
         }
         return false;

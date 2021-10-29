@@ -1,4 +1,6 @@
+import controller.DataHandler;
 import controller.GameFieldController;
+import controller.JsonParser;
 import exceptions.DumnException;
 import models.GameField;
 import models.Ship;
@@ -21,19 +23,22 @@ public class SeaBattleApp {
         System.out.println(gameFieldController.putShipsInRandomEmptyPlace(shipSet));
 
         gameFieldController.updateView();
-        while(true){
-            gameFieldController.userInput();
-            gameFieldController.updateView();
-        }
+//        while(true){
+//            gameFieldController.userInput();
+//            gameFieldController.updateView();
+//        }
 
 
 
-
-//        dataHandler.saveData()
+        DataHandler dataHandler = new DataHandler();
+        dataHandler.setParser(new JsonParser());
+        dataHandler.saveData();
 //        dataHandler.loadHistory();
 //        dataHandler.loadLastGame()
 //        gameFieldController.showHi
 //        story();
 
     }
+
+
 }
