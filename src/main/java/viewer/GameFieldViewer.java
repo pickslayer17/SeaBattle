@@ -11,11 +11,13 @@ public class GameFieldViewer {
     public static boolean debugCondition=false;
     char[][] fieldArray;
 
-    public void paintAll(GameField gameField) {
+    public void paintAll(GameField gameField, String playerName) {
         fieldArray = new char[gameField.getCountOfLines()][gameField.getCountOfColumns()];
         fillArray(gameField);
 
         //field out here
+        System.out.println("--------------------");
+        System.out.println("--" + playerName + "--");
         System.out.println("--------------------");
         for (int i = 0; i < fieldArray.length; i++) {
             System.out.print(i);
@@ -49,6 +51,14 @@ public class GameFieldViewer {
 
                 fillArraySwitch(gameObject,gameObjectValue,i,j);//Huge switch
 
+                /*
+                For graphics. Layers.
+                 */
+//                for(GameObject gObjInCell: cell.getGameObjects()){
+//                    if(gObjInCell.getGameObjectValue() == GameObjectValue.SHOT) break;
+//                    fillArraySwitch(gObjInCell,gObjInCell.getGameObjectValue(),i,j);
+//                }
+
             }
         }
     }
@@ -66,7 +76,12 @@ public class GameFieldViewer {
                 fieldArray[i][j] = '*';
                 break;
             case EMPTY:
-                fieldArray[i][j] = ' ';
+                EmptyObject empty = (EmptyObject) gameObject;
+                if(empty.isShot()){
+                    fieldArray[i][j] = '.';
+                } else {
+                    fieldArray[i][j] = ' ';
+                }
                 break;
             case AURA:
                 Aura aura = (Aura) gameObject;

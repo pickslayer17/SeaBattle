@@ -1,8 +1,10 @@
 package controller;
 
-import enums.DeckValue;
+import controller.logic.AuraShotVerifier;
+import controller.logic.DeckShotVerifier;
+import controller.logic.EmptyShotVerifier;
+import controller.logic.ShotVerifier;
 import enums.GameObjectValue;
-import enums.ShipValue;
 import models.*;
 
 import java.util.ArrayList;
@@ -30,15 +32,25 @@ public class ShotManager {
 
 
     //Create a Shot object and attaches it to Cell, then find gameObject under Shots and shot it
-    public void shot(int line, int column) {
+    public boolean shot(int line, int column) {
         Cell cell = gameField.getCell(line, column);
         Shot shot = new Shot(cell, GameObjectValue.SHOT);
         cell.attachGameObject((GameObject) shot);
+        GameObject gameObject = cell.findGameObjectUnderShots();
 
-        cell.findGameObjectUnderShots().shot();
-
+        ShotVerifier shotVerifier;
+        switch (gameObject.getGameObjectValue()){
+            case DECK -> shotVerifier = new DeckShotVerifier(gameObject);
+            case AURA -> shotVerifier = new AuraShotVerifier(gameObject);
+            case EMPTY -> shotVerifier = new EmptyShotVerifier(gameObject);
+            default -> shotVerifier = new EmptyShotVerifier(gameObject);
+        }
+        shotVerifier.verify();
 
         notifyListeners();
+        System.out.println("BOOM!");
+
+        return shotVerifier.isShotSuccess();
     }
 
 

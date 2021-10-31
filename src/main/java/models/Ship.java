@@ -19,6 +19,10 @@ public class Ship  {
     private ShipValue shipValue;
     private boolean isHorizontal;
 
+    public ShipValue getShipValue() {
+        return shipValue;
+    }
+
     public ShipName getShipName() {
         return shipName;
     }
@@ -46,26 +50,11 @@ public class Ship  {
         return decks;
     }
 
-    public void setShipValue(ShipValue shipValue) {
-        this.shipValue = shipValue;
+    public void injureShip() {
+        this.shipValue = ShipValue.INJURED;
     }
 
-    public void checkShip(){
-        boolean isAlive = false;
-        for(Deck deck: decks) {
-            if(deck.getDeckValue() == DeckValue.HEALTHY){ //if there is at least one HEALTHY -> the SHIP is not DEAD
-                isAlive = true;
-            }
-        }
-        if(!isAlive){
-            killShip();
-            System.out.println(" & KILLED");
-        } else {
-            System.out.println();
-        }
-    }
-
-    private void killShip(){
+    public void killShip(){
         shipValue = ShipValue.DEAD;
         setAuraVisible();
     }

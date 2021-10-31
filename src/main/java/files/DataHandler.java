@@ -1,4 +1,4 @@
-package controller;
+package files;
 
 import java.io.*;
 import java.util.Scanner;

@@ -45,8 +45,8 @@ This method returns true if Ships were put on the field
 /*
 This method read all GameObjectValues from Cells on the GameField and output the result in System.out
  */
-    public void updateView() {
-        gameFieldViewer.paintAll(gameField);
+    public void updateView(String playerName) {
+        gameFieldViewer.paintAll(gameField, playerName);
     }
 
 
@@ -70,14 +70,14 @@ This method read all GameObjectValues from Cells on the GameField and output the
 //        }
     }
 
-    private void performShot() {
+    public boolean performShot() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Type line(y):");
         int line = scanner.nextInt();
         System.out.println("Type line(x):");
         int column = scanner.nextInt();
         GameFieldViewer.debugCondition = true;
-        shotManager.shot(line, column);
-        System.out.println("BOOM!");
+        return shotManager.shot(line, column);
+
     }
 }

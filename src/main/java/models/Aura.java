@@ -12,6 +12,10 @@ public class Aura extends  GameObject{
     private boolean isVisible = false;
     private boolean isShot = false;
 
+    public void setShot(boolean shot) {
+        isShot = shot;
+    }
+
     public boolean isShot() {
         return isShot;
     }
@@ -42,9 +46,4 @@ public class Aura extends  GameObject{
         this.ship = ship;
     }
 
-    @Override
-    public void shot() {
-        isShot = true;
-        System.out.println("Shot to aura");
-    }
 }
