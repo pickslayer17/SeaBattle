@@ -34,6 +34,7 @@ public class ShipPlacer {
                 if(putShipToField(ship, line, column, isHorizontal))
                     break;
             }
+
         return true;
 
     }
@@ -41,8 +42,27 @@ public class ShipPlacer {
     public boolean placeShipsRandom(Set<Ship> shipSet){
 
         for(Ship ship: shipSet){
-
-            placeShipRandom(ship, RANDOM_ATTEMPTS_COUNT);
+            //only if random cannot find the place we try all the spaces
+            if(!placeShipRandom(ship, RANDOM_ATTEMPTS_COUNT)){
+                boolean isForcePut = false;
+                for (int i = 0; i < gameField.getCountOfLines(); i++) {
+                    for (int j = 0; j < gameField.getCountOfColumns(); j++) {
+                        if(putShipToField(ship, i, j, ship.isHorizontal())){ //force put ship to field
+                            isForcePut = true;
+                        }
+                    }
+                }
+                if(!isForcePut){
+                    for (int i = 0; i < gameField.getCountOfLines(); i++) {
+                        for (int j = 0; j < gameField.getCountOfColumns(); j++) {
+                            if(putShipToField(ship, i, j, !ship.isHorizontal())){ //force put ship to field with non-Horizontal
+                                isForcePut = true;
+                            }
+                        }
+                    }
+                }
+                if(!isForcePut) return false;
+            }
         }
         return true;
     }
@@ -64,7 +84,7 @@ Returns true if Ship was put and false if not
 
             gameField.addShip(ship);
             initializeDecks(ship, cellsForShip);
-            initializeShipAura(ship, cellsForShip, isHorizontal);
+            initializeShipAura(ship, cellsForShip);
             ship.setHorizontal(isHorizontal);
             return true;
         }
@@ -88,7 +108,7 @@ Initially Ship doesn't have any Decks
 This method create a list of Aura around the Ship
  */
 
-    private void initializeShipAura(Ship ship, List<Cell> cellsForShip, boolean isHorizontal) {
+    private void initializeShipAura(Ship ship, List<Cell> cellsForShip) {
         int lineBegin = cellsForShip.get(0).getLine()-1;
         int columnBegin = cellsForShip.get(0).getColumn()-1;
         int lineEnd = cellsForShip.get(cellsForShip.size()-1).getLine()+1;
