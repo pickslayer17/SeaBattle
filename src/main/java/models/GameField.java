@@ -1,5 +1,6 @@
 package models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import exceptions.DumnException;
 
 import java.util.HashSet;
@@ -9,10 +10,15 @@ import java.util.Set;
 This object stores 2d array of cells and Set of Ships
  */
 
-public class GameField implements ShotListener {
+public class GameField  {
+    @JsonIgnore
     private Cell[][] cells;
+
+    @JsonIgnore
     private Set<Ship> ships = new HashSet<>();
 
+    //for Jackson
+    private GameField(){}
 
     public int getCountOfLines() {
         return cells.length;
@@ -64,10 +70,4 @@ public class GameField implements ShotListener {
     }
 
 
-    @Override
-    public void shotUpdate() {
-        System.out.println("GameField knows that shot operations are completed");
-
-
-    }
 }

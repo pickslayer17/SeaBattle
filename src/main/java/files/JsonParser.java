@@ -2,13 +2,13 @@ package files;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import models.Cell;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
+import java.io.StringWriter;
+import java.util.Deque;
 
-public class JsonParser implements Parser<File>{
+public class JsonParser implements Parser{
 
     private ObjectMapper mapper = new ObjectMapper();
 
@@ -17,19 +17,21 @@ public class JsonParser implements Parser<File>{
     }
 
     @Override
-    public String parseTo(String data) {//parseToJson
+    public String serialize(Deque<GameState> gameStateHistory) throws IOException {//parseToJson
+        StringBuilder stringBuilder = new StringBuilder();
+        StringWriter writer = new StringWriter();
 
-        return "{Json}";//json
+
+        mapper.writeValue(writer, gameStateHistory);
+        stringBuilder.append(writer);
+        return stringBuilder.toString();//json
     }
 
     @Override
-    public String parseFrom(String data) {
-        String jsonArray = data.trim();
-        try {
-            return  mapper.readValue(jsonArray, new TypeReference<List<Cell>>(){});
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
+    public Deque<GameState> deSerialize(String data) throws IOException {
+        String jsonObj = data.trim();
+        return mapper.readValue(jsonObj, new TypeReference<Deque<GameState>>(){});
     }
+
+
 }

@@ -1,8 +1,9 @@
 package files;
 
-import java.io.File;
+import java.io.IOException;
+import java.util.Deque;
 
-public interface Parser <T>{
-    String parseTo(String data);
-    String parseFrom(String data);
+public interface Parser{
+    String serialize(Deque<GameState> gameStateHistory) throws IOException;
+    Deque<GameState> deSerialize(String data) throws IOException;
 }

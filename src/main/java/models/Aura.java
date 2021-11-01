@@ -30,14 +30,15 @@ public class Aura extends  GameObject{
     }
 
     public void setVisibleAllAuraInCell(){
-        for(GameObject gameObject: getCell().getGameObjects()){
-            if(gameObject.getGameObjectValue() == GameObjectValue.AURA){
-                Aura aura = (Aura) gameObject;
-                if(!aura.isVisible()) {
-                    aura.setVisible(true);
-                }
-            }
-        }
+        getCell().setVisibleAllAura();
+//        for(GameObject gameObject: getCell().getGameObjects()){
+//            if(gameObject.getGameObjectValue() == GameObjectValue.AURA){
+//                Aura aura = (Aura) gameObject;
+//                if(!aura.isVisible()) {
+//                    aura.setVisible(true);
+//                }
+//            }
+//        }
 
     }
 

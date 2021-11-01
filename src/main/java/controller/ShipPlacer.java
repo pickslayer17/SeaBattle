@@ -85,6 +85,8 @@ Returns true if Ship was put and false if not
             gameField.addShip(ship);
             initializeDecks(ship, cellsForShip);
             initializeShipAura(ship, cellsForShip);
+            ship.setLineCoordinate(line);
+            ship.setColumnCoordinate(column);
             ship.setHorizontal(isHorizontal);
             return true;
         }

@@ -29,7 +29,7 @@ public class GameFieldController {
     public GameFieldController(GameField gameField, GameFieldViewer gameFieldViewer) {
         this.gameField = gameField;
         this.gameFieldViewer = gameFieldViewer;
-        getShotManager().addListener(gameField);
+//        getShotManager().addListener(gameField);
     }
 /*
 This method returns true if Ships were put on the field
@@ -60,6 +60,7 @@ This method read all GameObjectValues from Cells on the GameField and output the
         if(line == 666 && column == 13){
             System.exit(0);
         }
+
         if(!gameField.isCoordinateInsideField(line, column)){
             System.out.println("Bad coordinates!");
             return false;

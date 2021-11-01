@@ -34,6 +34,9 @@ public class Cell  {
         return gameObjects.get(gameObjects.size()-1);
     }
 
+    public EmptyObject getEmptyObject(){
+        return (EmptyObject) gameObjects.get(0);
+    }
 
     /*
     this method attaches gameObject to Cell gameObject list
@@ -62,8 +65,14 @@ public class Cell  {
     }
 
 
-
-
-
-
+    public void setVisibleAllAura() {
+        for(GameObject gameObject: gameObjects){
+            if(gameObject.getGameObjectValue() == GameObjectValue.AURA){
+                Aura aura = (Aura) gameObject;
+                if(!aura.isVisible()) {
+                    aura.setVisible(true);
+                }
+            }
+        }
+    }
 }

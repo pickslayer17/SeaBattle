@@ -1,5 +1,6 @@
 package models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import enums.DeckValue;
 import enums.ShipName;
 import enums.ShipValue;
@@ -13,12 +14,35 @@ This is a ship
 
 public class Ship  {
 
+    private int lineCoordinate;
+    private int columnCoordinate;
+    @JsonIgnore
     private List<Deck> decks;
     private ShipName shipName;
+    @JsonIgnore
     private List<Aura> shipAura = new ArrayList<>();
-    private ShipValue shipValue;
+    private ShipValue shipValue = ShipValue.HEALTHY;
     private boolean isHorizontal;
     private boolean isVisible = true;
+
+    //for Jackson
+    private Ship(){}
+
+    public int getLineCoordinate() {
+        return lineCoordinate;
+    }
+
+    public void setLineCoordinate(int lineCoordinate) {
+        this.lineCoordinate = lineCoordinate;
+    }
+
+    public int getColumnCoordinate() {
+        return columnCoordinate;
+    }
+
+    public void setColumnCoordinate(int columnCoordinate) {
+        this.columnCoordinate = columnCoordinate;
+    }
 
     public ShipValue getShipValue() {
         return shipValue;

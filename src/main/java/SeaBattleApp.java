@@ -28,6 +28,8 @@ public class SeaBattleApp {
         gameProcess.addPlayers(player1, player2);
 //        gameProcess.initGame();
 
+        gameProcess.setLineCount(5);
+        gameProcess.setColumnCount(5);
         gameProcess.start();
 
 
