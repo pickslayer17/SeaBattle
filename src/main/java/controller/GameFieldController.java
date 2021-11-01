@@ -66,9 +66,7 @@ This method read all GameObjectValues from Cells on the GameField and output the
             return false;
         }
 
-
-
-        return shotManager.shot(line, column);
+        return  getShotManager().shot(line, column);
 
     }
 

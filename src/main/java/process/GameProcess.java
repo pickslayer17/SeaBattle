@@ -60,7 +60,7 @@ public class GameProcess {
         int i = 0;
         while (!isGameOver()){
 
-//            saveGameState();
+            saveGameState();
 
             if(isPlayer1Turn){
                 isPlayer1Turn = player1.turn();

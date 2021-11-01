@@ -1,9 +1,20 @@
 package files;
 
+import models.GameField;
+
 public class GameState {
     private FieldState fieldState1;
-    private  FieldState fieldState2;
+    private FieldState fieldState2;
+    private GameField gameField1;
+    private GameField gameField2;
 
+    public GameField getGameField1() {
+        return gameField1;
+    }
+
+    public GameField getGameField2() {
+        return gameField2;
+    }
 
     //for Jackson
     private GameState(){
