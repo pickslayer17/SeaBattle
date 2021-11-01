@@ -54,7 +54,7 @@ public class Cell  {
     }
 
     public GameObject findGameObjectUnderShots(){
-        GameObject gameObjectUnderShot = getLastGameObjectFromList();//top GameObject in gameObjectList of the Cell
+        GameObject gameObjectUnderShot = getLastGameObjectFromList();//return top object of  gameObjects which is not Shot
         for (int i = gameObjects.size()-1; i >=0 ; i--) {
             if(gameObjects.get(i).getGameObjectValue() != GameObjectValue.SHOT){
                 gameObjectUnderShot = gameObjects.get(i);

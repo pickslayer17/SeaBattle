@@ -22,24 +22,21 @@ public class DeckShotVerifier extends ShotVerifier {
         if(deckValue == DeckValue.HEALTHY){
             deck.setDeckValue(DeckValue.INJURED);
             deck.setVisible(true);
-            System.out.print("INJURED");
+            System.out.println("INJURED");
             verifyShip();
         } else {
             System.out.println("You've already shot this Deck!");
         }
     }
 
-    @Override
-    public boolean isShotSuccess() {
-        return true;
-    }
+
 
     private void verifyShip(){
         boolean isAlive = false;
         Ship ship = ((Deck) getGameObject()).getShip();
         ship.injureShip();
         for(Deck deck: ship.getDecks()) {
-            if(deck.getDeckValue() == DeckValue.HEALTHY){ //if there is at least one HEALTHY -> the SHIP is not DEAD
+            if(deck.getDeckValue() == DeckValue.HEALTHY ){ //if there is at least one HEALTHY -> the SHIP is not DEAD
                 isAlive = true;
             }
         }
@@ -47,13 +44,12 @@ public class DeckShotVerifier extends ShotVerifier {
             ship.killShip();
             System.out.println(" & KILLED");
             verifyAllShips();
-        } else {
-            System.out.println();
         }
     }
 
     private void verifyAllShips() {
         boolean areAllShipAlive = false;
+
         for(Ship ship : getGameObject().getCell().getGameField().getShips()){
             if(ship.getShipValue() != ShipValue.DEAD){
                 areAllShipAlive = true;

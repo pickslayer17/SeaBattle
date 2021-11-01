@@ -1,5 +1,6 @@
 package files;
 
+import models.GameField;
 import models.Ship;
 import models.Shot;
 import process.Player;
@@ -67,11 +68,13 @@ public class DataHandler {
     public void saveGameState(Player player1, Player player2) throws IOException {
         Set<Ship> shipSet1 = player1.getShips();
         List<Shot> shotList1 = player1.getShots();
-        FieldState fieldState1 = new FieldState(player1.getName(), shipSet1, shotList1);
+        GameField gameField1 = player1.getGameField();
+        FieldState fieldState1 = new FieldState(player1.getName(), gameField1, shipSet1, shotList1);
 
         Set<Ship> shipSet2 = player2.getShips();
         List<Shot> shotList2 = player2.getShots();
-        FieldState fieldState2 = new FieldState(player2.getName(), shipSet2, shotList2);
+        GameField gameField2 = player2.getGameField();
+        FieldState fieldState2 = new FieldState(player2.getName(), gameField2, shipSet2, shotList2);
 
         GameState gameState = new GameState(fieldState1, fieldState2);
         gameStateHistory.push(gameState);

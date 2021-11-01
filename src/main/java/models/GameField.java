@@ -17,18 +17,29 @@ public class GameField  {
     @JsonIgnore
     private Set<Ship> ships = new HashSet<>();
 
+    private String name;
+    private int countOfLines;
+    private int countOfColumns;
+
     //for Jackson
     private GameField(){}
 
+
     public int getCountOfLines() {
-        return cells.length;
+        return countOfLines;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public int getCountOfColumns() {
-        return cells[0].length;
+        return countOfColumns;
     }
 
     public GameField(int lines, int columns) throws DumnException {
+        countOfLines = lines;
+        countOfColumns = columns;
         if (lines <= 0 || columns <= 0) {
             throw new DumnException("Did you think well before?");
         }
@@ -70,4 +81,7 @@ public class GameField  {
     }
 
 
+    public String getName() {
+        return name;
+    }
 }

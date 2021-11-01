@@ -2,8 +2,10 @@ package controller;
 
 import models.GameField;
 import models.Ship;
+import models.Shot;
 import viewer.GameFieldViewer;
 
+import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
 
@@ -36,6 +38,9 @@ This method returns true if Ships were put on the field
 
  */
 
+    public boolean putShipsOnTheirPlaces(Set<Ship> shipSet) {
+        return getShipPlacer().placeShipsOnTheirPlaces(shipSet);
+    }
 
     public boolean putShipsInRandomEmptyPlace(Set<Ship> shipSet) {
         return getShipPlacer().placeShipsRandom(shipSet);
@@ -72,5 +77,10 @@ This method read all GameObjectValues from Cells on the GameField and output the
 
     public void makeShipsInvisible(Set<Ship> shipSet) {
         shipSet.stream().forEach(ship -> ship.makeInvisible());
+    }
+
+
+    public void verifyShots(List<Shot> shotList) {
+        getShotManager().verifyShots(shotList);
     }
 }

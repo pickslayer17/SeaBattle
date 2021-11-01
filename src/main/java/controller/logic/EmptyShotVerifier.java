@@ -16,8 +16,5 @@ public class EmptyShotVerifier extends ShotVerifier{
         System.out.println("Not Deck");
     }
 
-    @Override
-    public boolean isShotSuccess() {
-        return false;
-    }
+
 }

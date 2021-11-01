@@ -17,7 +17,7 @@ public class Ship  {
     private int lineCoordinate;
     private int columnCoordinate;
     @JsonIgnore
-    private List<Deck> decks;
+    private List<Deck> decks = new ArrayList<>();
     private ShipName shipName;
     @JsonIgnore
     private List<Aura> shipAura = new ArrayList<>();
@@ -55,7 +55,7 @@ public class Ship  {
     public Ship(ShipName shipName) {
         this.shipName = shipName;
         this.isHorizontal = isHorizontal;
-        decks = new ArrayList<>(shipName.getDeckCount());
+//        decks = new ArrayList<>(shipName.getDeckCount());
 
     }
 

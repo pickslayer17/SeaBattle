@@ -2,6 +2,7 @@ package files;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import models.GameField;
 import models.Ship;
 import models.Shot;
 
@@ -12,16 +13,26 @@ public class FieldState {
 
 
     private String playerName;
+    private GameField gameField;
     private Set<Ship> shipSet;
     private List<Shot> shotList;
+
+    public GameField getGameField() {
+        return gameField;
+    }
+
+    public String getPlayerName() {
+        return playerName;
+    }
 
     //for Jackson
     private FieldState(){
 
     }
 
-    public FieldState(String playerName, Set<Ship> shipSet, List<Shot> shotList) {
+    public FieldState(String playerName, GameField gameField, Set<Ship> shipSet, List<Shot> shotList) {
         this.playerName = playerName;
+        this.gameField = gameField;
         this.shipSet = shipSet;
         this.shotList = shotList;
     }

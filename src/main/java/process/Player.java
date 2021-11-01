@@ -18,34 +18,54 @@ public class Player {
     private GameFieldViewer gameFieldViewer;
     private Player enemyPlayer;
 
+
+    public GameField getGameField() {
+        return gameField;
+    }
+
     public String getName() {
         return name;
     }
 
     public Player(String name) {
+
         this.name = name;
     }
 
-    public void initializePlayer(boolean isEnemy, int lineCount, int columnCount) throws DumnException {
-        gameField = new GameField(lineCount,columnCount);
-        gameFieldViewer = new GameFieldViewer();
-        gameFieldController = new GameFieldController(gameField, gameFieldViewer);
+    public void addRandomShipSet(boolean isVisible){
         ShipFactory shipFactory = new ShipFactory();
-
-//        Set<Ship> shipSet = shipFactory.createClassicShipSet();
-        Set<Ship> shipSet = shipFactory.createTestShipSet();
+        Set<Ship> shipSet = shipFactory.createClassicShipSet();
+//        Set<Ship> shipSet = shipFactory.createTestShipSet();
 //        Set<Ship> shipSet = shipFactory.createHardTestShipSet();
 
-
         gameFieldController.putShipsInRandomEmptyPlace(shipSet);
-        if(isEnemy){
+        if(!isVisible){
             gameFieldController.makeShipsInvisible(shipSet);
         }
-        gameFieldController.updateView(name);
+    }
+
+    public void addConcreteShipSet(boolean isVisible, Set<Ship> shipSet){
+        gameFieldController.putShipsOnTheirPlaces(shipSet);
+        gameField.getShips().addAll(shipSet);
+        if(!isVisible){
+            gameFieldController.makeShipsInvisible(shipSet);
+        }
     }
 
 
-    public boolean turn(){
+
+    public void initializePlayer(int lineCount, int columnCount) throws DumnException {
+        gameField = new GameField(lineCount,columnCount);
+        gameField.setName(name);
+        gameFieldViewer = new GameFieldViewer();
+        gameFieldController = new GameFieldController(gameField, gameFieldViewer);
+
+
+
+    }
+
+
+    public boolean turn() {
             System.out.println(name + " turn");
             return enemyPlayer.gameFieldController.performShot();
     }
@@ -91,5 +111,15 @@ public class Player {
             }
         }
         return shotList;
+    }
+
+    public void verifyShots(List<Shot> shotList) {
+        gameFieldController.verifyShots(shotList);
+    }
+
+    public void putShotsOnField(List<Shot> shotList) {
+        for(Shot shot: shotList){
+            gameField.getCell(shot.getLineCoordinate(),shot.getColumnCoordinate()).attachGameObject(shot);
+        }
     }
 }

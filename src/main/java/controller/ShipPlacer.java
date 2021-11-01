@@ -39,6 +39,17 @@ public class ShipPlacer {
 
     }
 
+    public boolean placeShipsOnTheirPlaces(Set<Ship> shipSet) {
+           for(Ship ship: shipSet){
+               List<Cell> cellForShip = getCellsForShip(ship, ship.getLineCoordinate(), ship.getColumnCoordinate(),ship.isHorizontal());
+               initializeDecks(ship, cellForShip);
+               initializeShipAura(ship, cellForShip);
+               putShipToField(ship, ship.getLineCoordinate(), ship.getColumnCoordinate(), ship.isHorizontal());
+
+           }
+           return true;
+    }
+
     public boolean placeShipsRandom(Set<Ship> shipSet){
 
         for(Ship ship: shipSet){
@@ -193,6 +204,7 @@ This method returns true if:
         }
         return result;
     }
+
 
 
 }

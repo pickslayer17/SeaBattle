@@ -14,7 +14,7 @@ public class ShipFactory {
     public Set<Ship> createTestShipSet(){
         Set<Ship> shipSet = new HashSet<>();
         shipSet.add(createNewShip(ShipName.SINGLE_DECK));
-        shipSet.add(createNewShip(ShipName.DOUBLE_DECK));
+//        shipSet.add(createNewShip(ShipName.DOUBLE_DECK));
         shipSet.add(createNewShip(ShipName.TRIPLE_DECK));
         return shipSet;
     }

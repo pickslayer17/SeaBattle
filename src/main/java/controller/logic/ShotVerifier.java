@@ -1,5 +1,8 @@
 package controller.logic;
 
+import enums.GameObjectValue;
+import enums.ShipValue;
+import models.GameField;
 import models.GameObject;
 
 public abstract class ShotVerifier {
@@ -16,5 +19,7 @@ public abstract class ShotVerifier {
 
     public abstract void verify();
 
-    public abstract boolean isShotSuccess();
+    public  boolean isShotSuccess(){
+        return gameObject.getGameObjectValue() == GameObjectValue.DECK;
+    }
 }

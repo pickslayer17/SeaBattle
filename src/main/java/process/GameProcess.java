@@ -2,6 +2,8 @@ package process;
 
 import exceptions.DumnException;
 import files.DataHandler;
+import files.FieldState;
+import files.GameState;
 import files.JsonParser;
 
 import java.io.IOException;
@@ -11,11 +13,14 @@ public class GameProcess {
 
     private Player player1;
     private Player player2;
+    private boolean isPlayer1Visible = true;
+    private boolean isPlayer2Visible = true;
     private static boolean isGameOver = false;
     private static GameProcess instance;
-    private int lineCount = 10;
-    private int columnCount = 10;
+    private int lineCount;
+    private int columnCount;
     private DataHandler dataHandler = new DataHandler();
+
 
     public void setLineCount(int lineCount) {
         this.lineCount = lineCount;
@@ -47,15 +52,28 @@ public class GameProcess {
         this.player2 = player2;
     }
 
-    public void initGame(boolean player1Invisible, boolean player2Invisible) throws DumnException {
-        player1.initializePlayer(player1Invisible, lineCount, columnCount);
+    public void initGame(String player1Name, String player2Name, int lineCount, int columnCount) throws DumnException {
+        Player player1 = new Player(player1Name);
+        Player player2 = new Player(player2Name);
+        addPlayers(player1, player2);
+        setLineCount(lineCount);
+        setColumnCount(columnCount);
+        initPlayers();
+
+    }
+
+    public void initPlayers() throws DumnException {
+        player1.initializePlayer(lineCount, columnCount);
+        player1.addRandomShipSet(isPlayer1Visible);
         player1.addEnemy(player2);
-        player2.initializePlayer(player2Invisible, lineCount, columnCount);
+        player2.initializePlayer(lineCount, columnCount);
+        player2.addRandomShipSet(isPlayer2Visible);
         player2.addEnemy(player1);
     }
 
     public void play() throws DumnException {
-        initGame(false, false);
+        player1.updateViewer();
+        player2.updateViewer();
         boolean isPlayer1Turn = true;
         int i = 0;
         while (!isGameOver()){
@@ -73,22 +91,25 @@ public class GameProcess {
 
 
         }
+
     }
 
-    public void userInput() {
+    public void userInput() throws IOException {
 
         Scanner scanner = new Scanner(System.in);
-        System.out.println("1. Play Game 2. Something else");
+        System.out.println("1. Play new Game 2. Show last history action 3. Show all history");
         try {
             switch (scanner.nextLine().charAt(0)) {
                 case '1':
-                    System.out.println("1");
+                    initGame("PlaYYer1", "PloYYer2", lineCount, columnCount);
                     play();
+                    saveGameState();
                     break;
                 case '2':
-                    System.out.println("2");
                     showGameState();
                     break;
+                case '3':
+                    showHistory();
                 default:
             }
         } catch (StringIndexOutOfBoundsException | DumnException exception){
@@ -96,7 +117,7 @@ public class GameProcess {
         }
     }
 
-    public void start() {
+    public void start() throws IOException {
         while(true){
             userInput();
             if(isGameOver())
@@ -110,23 +131,50 @@ public class GameProcess {
         return isGameOver;
     }
 
+    public void showHistory(){
 
-    public void showGameState()  {
-        try{
-        dataHandler.loadGameState().peek().getFieldState1().getShipSet().stream()
-                .forEach(ship -> System.out.println(ship.getShipName()));}
-         catch (IOException exception){
-            exception.printStackTrace();
-         }
     }
 
 
-    public void saveGameState(){
-        try {
+
+    public void showGameState() throws IOException, DumnException {
+        GameState gameState = dataHandler.loadGameState().peek();
+        FieldState fieldState1 = gameState.getFieldState1();
+        FieldState fieldState2 = gameState.getFieldState2();
+
+
+        initGame(fieldState1.getPlayerName(),fieldState2.getPlayerName(), fieldState1.getGameField().getCountOfLines(), fieldState1.getGameField().getCountOfColumns());
+
+
+        player1.initializePlayer( lineCount, columnCount);
+        player1.addEnemy(player2);
+        player1.addConcreteShipSet(isPlayer1Visible, fieldState1.getShipSet());
+        player1.putShotsOnField(fieldState1.getShotList());
+        player1.verifyShots(fieldState1.getShotList());
+
+        player2.initializePlayer(lineCount, columnCount);
+        player2.addConcreteShipSet(isPlayer2Visible, fieldState2.getShipSet());
+        player2.addEnemy(player1);
+        player2.putShotsOnField(fieldState2.getShotList());
+        player2.verifyShots(fieldState2.getShotList());
+
+        player1.updateViewer();
+        player2.updateViewer();
+
+    }
+
+
+    public void saveGameState()  {
+        try{
             dataHandler.saveGameState(player1, player2);
-        } catch (IOException exception) {
-            System.err.println("Some IOException");
+        }
+        catch (IOException exception){
             exception.printStackTrace();
         }
+    }
+
+    public void setPlayersVisibility(boolean isPlayer1Visible, boolean isPlayer2Visible) {
+        this.isPlayer1Visible = isPlayer1Visible;
+        this.isPlayer2Visible = isPlayer2Visible;
     }
 }

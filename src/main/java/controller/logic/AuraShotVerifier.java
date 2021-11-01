@@ -16,8 +16,5 @@ public class AuraShotVerifier extends ShotVerifier{
         System.out.println("Shot to aura");
     }
 
-    @Override
-    public boolean isShotSuccess() {
-        return false;
-    }
+
 }

@@ -27,6 +27,11 @@ public class GameFieldViewer {
         System.out.println("--------------------");
         System.out.println("--" + playerName + "--");
         System.out.println("--------------------");
+        System.out.print("+ ");
+        for (int i = 0; i < fieldArray.length; i++) {
+            System.out.print(i + "  ");
+        }
+        System.out.println();
         for (int i = 0; i < fieldArray.length; i++) {
             System.out.print(i);
             for (int j = 0; j < fieldArray[i].length; j++) {
