@@ -2,6 +2,8 @@ package process;
 
 import exceptions.DumnException;
 
+import java.util.Scanner;
+
 public class GameProcess {
 
     private Player player1;
@@ -26,16 +28,20 @@ public class GameProcess {
 
     }
 
-    public void initGame(Player player1, Player player2) throws DumnException {
+    public void addPlayers(Player player1, Player player2){
         this.player1 = player1;
         this.player2 = player2;
-        player1.initializePlayer();
+    }
+
+    public void initGame() throws DumnException {
+        player1.initializePlayer(false);
         player1.addEnemy(player2);
-        player2.initializePlayer();
+        player2.initializePlayer(true);
         player2.addEnemy(player1);
     }
 
-    public void play(){
+    public void play() throws DumnException {
+        initGame();
         boolean isPlayer1Turn = true;
         while (!isGameOver()){
             if(isPlayer1Turn){
@@ -48,7 +54,38 @@ public class GameProcess {
         }
     }
 
+    public void userInput() {
+
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("1. Play Game 2. Something else");
+        try {
+            switch (scanner.nextLine().charAt(0)) {
+                case '1':
+                    System.out.println("1");
+                    play();
+                    break;
+                case '2':
+                    System.out.println("2");
+                    break;
+                default:
+            }
+        } catch (StringIndexOutOfBoundsException | DumnException exception){
+            exception.printStackTrace();
+        }
+    }
+
+    public void start() {
+        while(true){
+            userInput();
+            if(isGameOver())
+            break;
+        }
+        System.out.println("start func is ended");
+    }
+
+
     public static boolean isGameOver() {
         return isGameOver;
     }
+
 }

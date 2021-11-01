@@ -12,6 +12,15 @@ public class Deck extends GameObject{
 
     private Ship ship;
     private DeckValue deckValue;
+    private boolean isVisible = true;
+
+    public boolean isVisible() {
+        return isVisible;
+    }
+
+    public void setVisible(boolean visible) {
+        isVisible = visible;
+    }
 
     public DeckValue getDeckValue() {
         return deckValue;

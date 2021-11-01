@@ -25,8 +25,10 @@ public class SeaBattleApp {
         Player player1 = new Player("Player1");
         Player player2 = new Player("Player2");
         GameProcess gameProcess = GameProcess.getInstance();
-        gameProcess.initGame(player1, player2);
-        gameProcess.play();
+        gameProcess.addPlayers(player1, player2);
+//        gameProcess.initGame();
+
+        gameProcess.start();
 
 
 

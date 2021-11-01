@@ -50,34 +50,28 @@ This method read all GameObjectValues from Cells on the GameField and output the
     }
 
 
-    public void userInput() {
-        performShot();
-//        Scanner scanner = new Scanner(System.in);
-//        System.out.println("1. Shot\n2. Something else");
-//        try {
-//            switch (scanner.nextLine().charAt(0)) {
-//                case '1':
-//                    System.out.println("1");
-//                    performShot();
-//                    break;
-//                case '2':
-//                    System.out.println("2");
-//                    break;
-//                default:
-//            }
-//        } catch (StringIndexOutOfBoundsException exception){
-//            exception.printStackTrace();
-//        }
-    }
-
     public boolean performShot() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Type line(y):");
         int line = scanner.nextInt();
         System.out.println("Type line(x):");
         int column = scanner.nextInt();
-        GameFieldViewer.debugCondition = true;
+
+        if(line == 666 && column == 13){
+            System.exit(0);
+        }
+        if(!gameField.isCoordinateInsideField(line, column)){
+            System.out.println("Bad coordinates!");
+            return false;
+        }
+
+
+
         return shotManager.shot(line, column);
 
+    }
+
+    public void makeShipsInvisible(Set<Ship> shipSet) {
+        shipSet.stream().forEach(ship -> ship.makeInvisible());
     }
 }

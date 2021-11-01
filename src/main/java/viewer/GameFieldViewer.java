@@ -10,6 +10,14 @@ This object only output data based on CellValue of the Cells in the GameField
 public class GameFieldViewer {
     public static boolean debugCondition=false;
     char[][] fieldArray;
+    private final char EMPTY = ' ';
+    private final char EMPTY_SHOT = '.';
+    private final char DECK_HEALTHY = 'O';
+    private final char DECK_INJURED = 'X';
+    private final char DECK_DEAD = 'X';
+    private final char AURA_HEALTHY = '-';
+    private final char AURA_SHOT = '*';
+
 
     public void paintAll(GameField gameField, String playerName) {
         fieldArray = new char[gameField.getCountOfLines()][gameField.getCountOfColumns()];
@@ -68,30 +76,33 @@ public class GameFieldViewer {
             case DECK:
                 Deck deck = (Deck) gameObject;
                 switch (deck.getDeckValue()){
-                    case HEALTHY -> fieldArray[i][j] = 'O';
-                    case INJURED -> fieldArray[i][j] = 'X';
+                    case HEALTHY -> fieldArray[i][j] = DECK_HEALTHY;
+                    case INJURED -> fieldArray[i][j] = DECK_INJURED;
+                }
+                if(!deck.isVisible()){
+                    fieldArray[i][j] = EMPTY;
                 }
                 break;
-            case SHOT:
-                fieldArray[i][j] = '*';
-                break;
+//            case SHOT:
+//                fieldArray[i][j] = '*';
+//                break;
             case EMPTY:
                 EmptyObject empty = (EmptyObject) gameObject;
                 if(empty.isShot()){
-                    fieldArray[i][j] = '.';
+                    fieldArray[i][j] = EMPTY_SHOT;
                 } else {
-                    fieldArray[i][j] = ' ';
+                    fieldArray[i][j] = EMPTY;
                 }
                 break;
             case AURA:
                 Aura aura = (Aura) gameObject;
                 if(aura.isShot()){
-                    fieldArray[i][j] = '*';
+                    fieldArray[i][j] = AURA_SHOT;
                 } else {
                     if(auraIsVisible(aura)){
-                        fieldArray[i][j] = '-';
+                        fieldArray[i][j] = AURA_HEALTHY;
                     } else {
-                        fieldArray[i][j] = ' ';
+                        fieldArray[i][j] = EMPTY;
                     }
                 }
                 break;

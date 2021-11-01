@@ -18,6 +18,7 @@ public class Ship  {
     private List<Aura> shipAura = new ArrayList<>();
     private ShipValue shipValue;
     private boolean isHorizontal;
+    private boolean isVisible = true;
 
     public ShipValue getShipValue() {
         return shipValue;
@@ -63,5 +64,15 @@ public class Ship  {
         for(Aura aura:shipAura) {
             aura.setVisible(true);
         }
+    }
+
+    public void makeInvisible(){
+        decks.stream().forEach(deck -> deck.setVisible(false));
+        isVisible = false;
+    }
+
+    public void makeVisible(){
+        decks.stream().forEach(deck -> deck.setVisible(true));
+        isVisible = true;
     }
 }

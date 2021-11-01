@@ -20,16 +20,21 @@ public class Player {
         this.name = name;
     }
 
-    public void initializePlayer() throws DumnException {
-        gameField = new GameField(10,10);
+    public void initializePlayer(boolean isEnemy) throws DumnException {
+        gameField = new GameField(5,5);
         gameFieldViewer = new GameFieldViewer();
         gameFieldController = new GameFieldController(gameField, gameFieldViewer);
-
         ShipFactory shipFactory = new ShipFactory();
+
 //        Set<Ship> shipSet = shipFactory.createClassicShipSet();
         Set<Ship> shipSet = shipFactory.createTestShipSet();
 //        Set<Ship> shipSet = shipFactory.createHardTestShipSet();
+
+
         gameFieldController.putShipsInRandomEmptyPlace(shipSet);
+        if(isEnemy){
+            gameFieldController.makeShipsInvisible(shipSet);
+        }
         gameFieldController.updateView(name);
     }
 

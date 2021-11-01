@@ -21,6 +21,7 @@ public class DeckShotVerifier extends ShotVerifier {
 
         if(deckValue == DeckValue.HEALTHY){
             deck.setDeckValue(DeckValue.INJURED);
+            deck.setVisible(true);
             System.out.print("INJURED");
             verifyShip();
         } else {

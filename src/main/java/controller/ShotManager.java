@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /*
-This object does all dirty work with shot
+This object creates ShotVerifier object which contains logic of shot
  */
 public class ShotManager {
     GameField gameField;
