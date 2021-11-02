@@ -3,6 +3,7 @@ package controller;
 import models.GameField;
 import models.Ship;
 import models.Shot;
+import process.GameProcess;
 import viewer.GameFieldViewer;
 
 import java.util.List;
@@ -64,6 +65,9 @@ This method read all GameObjectValues from Cells on the GameField and output the
 
         if(line == 666 && column == 13){
             System.exit(0);
+        }
+        if(line == 55 && column == 55){
+            GameProcess.USER_WANTS_TO_QUIT = true;
         }
 
         if(!gameField.isCoordinateInsideField(line, column)){

@@ -16,6 +16,7 @@ This is the main game object. Which keep players, main game properties and also 
  */
 public class GameProcess {
 
+    public static boolean USER_WANTS_TO_QUIT = false;
     //default values
     private boolean isPlayer1Visible = true;
     private boolean isPlayer2Visible = true;
@@ -84,7 +85,7 @@ public class GameProcess {
         player2.updateViewer();
         boolean isPlayer1Turn = true;
         int i = 0;
-        while (!isGameOver()){
+        while (!isGameOver() && !USER_WANTS_TO_QUIT){
 
             saveGameState();
 
@@ -99,6 +100,7 @@ public class GameProcess {
 
 
         }
+        GameProcess.USER_WANTS_TO_QUIT = false;
 
     }
 
