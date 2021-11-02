@@ -97,10 +97,7 @@ public class GameProcess {
             }
             player1.updateViewer();
             player2.updateViewer();
-
-
         }
-        GameProcess.USER_WANTS_TO_QUIT = false;
 
     }
 
@@ -113,7 +110,8 @@ public class GameProcess {
                 case '1':
                     initGame("PlaYYer1", "PloYYer2", lineCount, columnCount);
                     play();
-                    saveGameState();
+
+                    GameProcess.USER_WANTS_TO_QUIT = false;
                     break;
                 case '2':
                     showGameState(getLastGameState());
