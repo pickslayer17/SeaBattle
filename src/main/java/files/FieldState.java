@@ -9,6 +9,7 @@ import models.Shot;
 import java.util.List;
 import java.util.Set;
 
+//keeps data about current state of GameField such as its size, Ships location and Shot performed
 public class FieldState {
 
 

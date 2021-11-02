@@ -2,6 +2,7 @@ package files;
 
 import models.GameField;
 
+//keeps 2 FieldState
 public class GameState {
     private FieldState fieldState1;
     private FieldState fieldState2;

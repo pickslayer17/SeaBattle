@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import enums.GameObjectValue;
 
 /*
-This class is super class for all GameObject such as Deck(of the Ship), Aura(of the Ship) ans etc.
+This class is super class for all GameObject such as Deck(of the Ship), Aura(of the Ship) and etc.
  */
 
 public abstract class GameObject {

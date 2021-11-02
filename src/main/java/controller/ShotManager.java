@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /*
-This object creates ShotVerifier object which contains logic of shot
+This object creates ShotVerifier object which contains shot logic
  */
 public class ShotManager {
     GameField gameField;
@@ -43,7 +43,7 @@ public class ShotManager {
         GameObject gameObject = cell.findGameObjectUnderShots();
 
 
-        boolean isShotSuccess = verifyShot(gameObject);
+        boolean isShotSuccess = verifyShotLogic(gameObject);
 
         notifyListeners();
         System.out.println("\nField of " + gameField.getName() + " (" + shot.getLineCoordinate() + "," + shot.getColumnCoordinate() + ") BOOM!");
@@ -51,7 +51,7 @@ public class ShotManager {
         return isShotSuccess;
     }
 
-    public boolean verifyShot(GameObject gameObject){
+    public boolean verifyShotLogic(GameObject gameObject){
         ShotVerifier shotVerifier;
         switch (gameObject.getGameObjectValue()){
             case DECK -> shotVerifier = new DeckShotVerifier(gameObject);
@@ -63,23 +63,23 @@ public class ShotManager {
         return shotVerifier.isShotSuccess();
     }
 
-    public void verifyCell(int line, int column){
+    public boolean isAnyShotInCell(int line, int column){
         Cell cell = gameField.getCell(line, column);
-        if (cell.getGameObjects().stream().
-                anyMatch(gameObject -> gameObject.getGameObjectValue() == GameObjectValue.SHOT)){
-                verifyShot(cell.findGameObjectUnderShots());
-        }
-
-
+        return cell.getGameObjects().stream().
+                anyMatch(gameObject -> gameObject.getGameObjectValue() == GameObjectValue.SHOT);
     }
 
-    public void verifyShots(List<Shot> shotList){
+    //verify list of shots as if they were performed
+    public void verifyShotsAsIfPerformed(List<Shot> shotList){
         List<Shot> orderShotList = shotList.stream().
                 sorted(Comparator.comparing(shot -> shot.getShotNumber())).
                 collect(Collectors.toList());
         for(Shot shot: orderShotList){
-            System.out.print("\n" + shot.getShotNumber() + ". Field of " + gameField.getName() + " (" + shot.getLineCoordinate() + "," + shot.getColumnCoordinate() + ") ");
-            verifyCell(shot.getLineCoordinate(), shot.getColumnCoordinate());
+            int line = shot.getLineCoordinate();
+            int column = shot.getColumnCoordinate();
+            System.out.print("\n" + shot.getShotNumber() + ". Field of " + gameField.getName() + " (" + line + "," + column + ") ");
+            Cell cell = gameField.getCell(line, column);
+            verifyShotLogic(cell.findGameObjectUnderShots());
 
         }
     }

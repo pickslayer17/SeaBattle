@@ -5,6 +5,7 @@ import enums.ShipName;
 import java.util.HashSet;
 import java.util.Set;
 
+//creates different shipSets
 public class ShipFactory {
 
     public Ship createNewShip(ShipName shipName){

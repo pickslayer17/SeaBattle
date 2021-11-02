@@ -9,7 +9,7 @@ import java.util.Random;
 import java.util.Set;
 
 /*
-This object provides methods allow place Ship and its Aura on the GameField
+This object provides methods allow placing Ship Decks and  Aura on the GameField
  */
 
 public class ShipPlacer {

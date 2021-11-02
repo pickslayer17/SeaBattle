@@ -11,6 +11,10 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+
+/*
+this object keeps GameField, GameController and GameViewer and controls their behaviour
+ */
 public class Player {
     private String name;
     private GameField gameField;
@@ -80,18 +84,6 @@ public class Player {
         gameFieldController.updateView(name);
     }
 
-    public EmptyObject[][] getEmptyObjects() {
-        int lines = gameField.getCountOfLines();
-        int columns = gameField.getCountOfColumns();
-        EmptyObject[][] emptyObjects = new EmptyObject[lines][columns];
-        for (int i = 0; i < lines; i++) {
-            for (int j = 0; j <  columns; j++) {
-                emptyObjects[i][j] = gameField.getCell(i, j).getEmptyObject();
-            }
-        }
-
-        return emptyObjects;
-    }
 
     public Set<Ship> getShips() {
         return gameField.getShips();
@@ -113,13 +105,11 @@ public class Player {
         return shotList;
     }
 
-    public void verifyShots(List<Shot> shotList) {
-        gameFieldController.verifyShots(shotList);
-    }
 
     public void putShotsOnField(List<Shot> shotList) {
         for(Shot shot: shotList){
             gameField.getCell(shot.getLineCoordinate(),shot.getColumnCoordinate()).attachGameObject(shot);
         }
+        gameFieldController.verifyShotsAsIfPerformed(shotList);
     }
 }

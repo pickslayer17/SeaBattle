@@ -5,6 +5,8 @@ import enums.ShipValue;
 import models.GameField;
 import models.GameObject;
 
+
+//allows creating classes for verify shot logic for GameObject
 public abstract class ShotVerifier {
 
     private GameObject gameObject;

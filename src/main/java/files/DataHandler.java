@@ -9,6 +9,7 @@ import process.Player;
 import java.io.*;
 import java.util.*;
 
+//write and read GameState deque to file specified
 public class DataHandler {
 
     private final String  FILE_PATH = "src/main/java/files/SeaBattleLog.json";

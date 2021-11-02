@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /*
-This object is main container for GameObjects
+This object is a main container for GameObjects
  */
 
 public class Cell  {

@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.StringWriter;
 import java.util.Deque;
 
+//serialize/deserialize GameState deque
 public class JsonParser implements Parser{
 
     private ObjectMapper mapper = new ObjectMapper();

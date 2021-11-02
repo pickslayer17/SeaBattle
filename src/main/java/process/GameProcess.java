@@ -11,16 +11,22 @@ import java.util.Deque;
 import java.util.Iterator;
 import java.util.Scanner;
 
+/*
+This is the main game object. Which keep players, main game properties and also DataHanlder
+ */
 public class GameProcess {
+
+    //default values
+    private boolean isPlayer1Visible = true;
+    private boolean isPlayer2Visible = true;
+    private int lineCount=10;
+    private int columnCount=10;
 
     private Player player1;
     private Player player2;
-    private boolean isPlayer1Visible = true;
-    private boolean isPlayer2Visible = true;
     private static boolean isGameOver = false;
     private static GameProcess instance;
-    private int lineCount;
-    private int columnCount;
+
     private DataHandler dataHandler = new DataHandler();
 
 
@@ -73,7 +79,7 @@ public class GameProcess {
         player2.addEnemy(player1);
     }
 
-    public void play() throws DumnException {
+    public void play()  {
         player1.updateViewer();
         player2.updateViewer();
         boolean isPlayer1Turn = true;
@@ -112,6 +118,7 @@ public class GameProcess {
                     break;
                 case '3':
                     showHistory();
+                    break;
                 case '4':
                     System.exit(0);
                 default:
@@ -162,16 +169,15 @@ public class GameProcess {
 
 
         player1.initializePlayer( lineCount, columnCount);
-        player1.addEnemy(player2);
+//        player1.addEnemy(player2); // in case we want to continue game after loading
         player1.addConcreteShipSet(isPlayer1Visible, fieldState1.getShipSet());
         player1.putShotsOnField(fieldState1.getShotList());
-        player1.verifyShots(fieldState1.getShotList());
 
         player2.initializePlayer(lineCount, columnCount);
         player2.addConcreteShipSet(isPlayer2Visible, fieldState2.getShipSet());
-        player2.addEnemy(player1);
+//        player2.addEnemy(player1);
         player2.putShotsOnField(fieldState2.getShotList());
-        player2.verifyShots(fieldState2.getShotList());
+
 
         player1.updateViewer();
         player2.updateViewer();

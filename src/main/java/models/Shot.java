@@ -2,6 +2,7 @@ package models;
 
 import enums.GameObjectValue;
 
+//placed on the GameField to know where Shot was performed
 public class Shot extends GameObject{
 
     private int shotNumber=0;

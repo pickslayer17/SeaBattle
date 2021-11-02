@@ -10,7 +10,7 @@ import java.util.Scanner;
 import java.util.Set;
 
 /*
-This object controls behaviour of the model
+This object links GameField and GameFieldViewer. Also has function to control behaviour of the GameField
  */
 
 public class GameFieldController {
@@ -80,7 +80,7 @@ This method read all GameObjectValues from Cells on the GameField and output the
     }
 
 
-    public void verifyShots(List<Shot> shotList) {
-        getShotManager().verifyShots(shotList);
+    public void verifyShotsAsIfPerformed(List<Shot> shotList) {
+        getShotManager().verifyShotsAsIfPerformed(shotList);
     }
 }

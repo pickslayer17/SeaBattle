@@ -3,7 +3,7 @@ package models;
 import enums.GameObjectValue;
 
 /*
-This object allows to cover cells around the ship
+This object allows covering cells around the ship
  */
 
 public class Aura extends  GameObject{
