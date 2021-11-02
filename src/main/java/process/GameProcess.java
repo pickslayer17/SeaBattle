@@ -7,6 +7,8 @@ import files.GameState;
 import files.JsonParser;
 
 import java.io.IOException;
+import java.util.Deque;
+import java.util.Iterator;
 import java.util.Scanner;
 
 public class GameProcess {
@@ -97,7 +99,7 @@ public class GameProcess {
     public void userInput() throws IOException {
 
         Scanner scanner = new Scanner(System.in);
-        System.out.println("1. Play new Game 2. Show last history action 3. Show all history");
+        System.out.println("1. Play new Game 2. Show last history action 3. Show all history 4. Exit");
         try {
             switch (scanner.nextLine().charAt(0)) {
                 case '1':
@@ -106,10 +108,12 @@ public class GameProcess {
                     saveGameState();
                     break;
                 case '2':
-                    showGameState();
+                    showGameState(getLastGameState());
                     break;
                 case '3':
                     showHistory();
+                case '4':
+                    System.exit(0);
                 default:
             }
         } catch (StringIndexOutOfBoundsException | DumnException exception){
@@ -131,14 +135,25 @@ public class GameProcess {
         return isGameOver;
     }
 
-    public void showHistory(){
+    public void showHistory() throws IOException ,DumnException{
+        Deque<GameState> gameStates = dataHandler.loadGameState();
+        Iterator<GameState> iterator = gameStates.descendingIterator();
+        while(iterator.hasNext()){
+            showGameState(iterator.next());
+        }
 
+
+
+    }
+
+    public GameState getLastGameState() throws IOException {
+        return dataHandler.loadGameState().peek();
     }
 
 
 
-    public void showGameState() throws IOException, DumnException {
-        GameState gameState = dataHandler.loadGameState().peek();
+    public void showGameState(GameState gameState) throws IOException, DumnException {
+        System.out.println("Game state# " + gameState.getNumber());
         FieldState fieldState1 = gameState.getFieldState1();
         FieldState fieldState2 = gameState.getFieldState2();
 

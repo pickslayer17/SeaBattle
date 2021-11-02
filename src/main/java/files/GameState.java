@@ -5,7 +5,7 @@ import models.GameField;
 public class GameState {
     private FieldState fieldState1;
     private FieldState fieldState2;
-
+    private int number = 0;
 
 
 
@@ -25,5 +25,13 @@ public class GameState {
 
     public FieldState getFieldState2() {
         return fieldState2;
+    }
+
+    public void setNumber(int number) {
+        this.number = number;
+    }
+
+    public int getNumber() {
+        return number;
     }
 }

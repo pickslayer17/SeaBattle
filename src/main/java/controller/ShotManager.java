@@ -78,24 +78,10 @@ public class ShotManager {
                 sorted(Comparator.comparing(shot -> shot.getShotNumber())).
                 collect(Collectors.toList());
         for(Shot shot: orderShotList){
-            System.out.print("\n-" + shot.getShotNumber() + ". Field of " + gameField.getName() + " (" + shot.getLineCoordinate() + "," + shot.getColumnCoordinate() + ") ");
+            System.out.print("\n" + shot.getShotNumber() + ". Field of " + gameField.getName() + " (" + shot.getLineCoordinate() + "," + shot.getColumnCoordinate() + ") ");
             verifyCell(shot.getLineCoordinate(), shot.getColumnCoordinate());
 
         }
     }
-
-
-    public void verifyField(){
-        for (int i = 0; i < gameField.getCountOfLines(); i++) {
-            for (int j = 0; j < gameField.getCountOfColumns(); j++) {
-                verifyCell(i, j);
-
-            }
-        }
-    }
-
-
-
-
 
 }

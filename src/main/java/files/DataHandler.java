@@ -1,5 +1,6 @@
 package files;
 
+import controller.ShotManager;
 import models.GameField;
 import models.Ship;
 import models.Shot;
@@ -77,6 +78,7 @@ public class DataHandler {
         FieldState fieldState2 = new FieldState(player2.getName(), gameField2, shipSet2, shotList2);
 
         GameState gameState = new GameState(fieldState1, fieldState2);
+        gameState.setNumber(ShotManager.shotCount);
         gameStateHistory.push(gameState);
 
         writeToFile(parser.serialize(gameStateHistory));
